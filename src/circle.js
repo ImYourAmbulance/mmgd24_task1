@@ -5,18 +5,23 @@ import Triangle from "./triangle";
 
 export default class Circle extends Shape {
     
-    constructor(x, y, r, vx, vy) {
-        this.x = x
-        this.y = y
-        this.r = r
-
-        super(x - r, y - r, 2 * r, 2 * r, vx, vy);
+    constructor(x, y, r, vx, vy, windowAABB) {
+        super(x - r, y - r, 2 * r, 2 * r, vx, vy, windowAABB);
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.vx = vx;
+        this.vy = vy;
     }
 
 
     tryCollide(otherShapesList) {
         otherShapesList.forEach(shape=>{
-            if (this.AABB.intersects(otherShape.AABB) && tryCollideGeometry(shape)) {
+            //if (this.AABB.intersects(shape.AABB)) {
+            if (this.AABB.intersects(shape.AABB) && this.tryCollideGeometry(shape)) {
+                if (this.numLives < 1 || shape.numLives < 1) {
+                    return;
+                } 
                 this.vx = [shape.vx, shape.vx = this.vx][0];
                 this.vy = [shape.vy, shape.vy = this.vy][0];
 
@@ -39,8 +44,20 @@ export default class Circle extends Shape {
 
 
     update() {
+        if (this.numLives < 1) {
+            return;
+        } 
+        
+        if (!this.windowAABB.intersects(this.AABB)) {
+            this.vx *= -1;
+            this.vy *= -1;
+        }
+
         this.x += this.vx;
         this.y += this.vy;
+
+        this.AABB.x += this.vx;
+        this.AABB.y += this.vy;
     }
 
 
@@ -48,7 +65,7 @@ export default class Circle extends Shape {
         let color = '#000000'
         switch (this.numLives) {
             case 3:
-                color = '#00ff00';
+                color = '#a83232';
                 break;
             case 2: 
                 color = '#ffff00';
