@@ -6,11 +6,7 @@ import Circle from "./circle";
 
 const canvas = document.getElementById("cnvs");
 
-const gameState = {rects:
-        [new Rectangle(10,10,20,20, Math.random(), Math.random()),
-            new Rectangle(500,10,20,20, Math.random(), Math.random())]
-};
-
+const gameState = {};
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -23,16 +19,18 @@ function getRandomArbitrary(min, max) {
 
 
 function createShapes(shapesArray) {
-    const instNum = 4;
+    const instNum = 10;
     shapes = [];
 
     for (let i = 0; i < instNum; i++) {
-        let vx = getRandomArbitrary(-6, 6);
-        let vy = getRandomArbitrary(-6, 6);
-        
-        shapes[i] = new Triangle(getRandomArbitrary(0, width), getRandomArbitrary(0, height), getRandomArbitrary(20, 30), vx, vy, windowAABB);
-        shapes[i + instNum] = new Hexagon(getRandomArbitrary(0, width), getRandomArbitrary(0, height), getRandomArbitrary(20, 30), vx, vy, windowAABB);
-        shapes[i + instNum * 2] = new Circle(getRandomArbitrary(0, width), getRandomArbitrary(0, height), getRandomArbitrary(20, 30), vx, vy, windowAABB);
+        let vx = getRandomArbitrary(-3, 3);
+        let vy = getRandomArbitrary(-3, 3);
+        let minSize = 40;
+        let maxSize = 60;
+
+        shapes[i] = new Triangle(getRandomArbitrary(0, width), getRandomArbitrary(0, height), getRandomArbitrary(minSize, maxSize), vx, vy, windowAABB);
+        shapes[i + instNum] = new Hexagon(getRandomArbitrary(0, width), getRandomArbitrary(0, height), getRandomArbitrary(minSize, maxSize), vx, vy, windowAABB);
+        shapes[i + instNum * 2] = new Circle(getRandomArbitrary(0, width), getRandomArbitrary(0, height), getRandomArbitrary(minSize, maxSize), vx, vy, windowAABB);
     }
 
     return shapes;
@@ -66,11 +64,6 @@ function update(tick) {
         }
         currentShape.update();
     }
-    gameState.rects.forEach(r=>{
-        r.x += r.vx
-        r.y += r.vy
-
-    })
 }
 
 

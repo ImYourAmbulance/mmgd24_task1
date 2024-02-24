@@ -1,4 +1,3 @@
-
 import Shape from "./shape";
 import Hexagon from "./hexagon";
 import Circle from "./circle";

@@ -22,8 +22,13 @@ export default class Circle extends Shape {
                 if (this.numLives < 1 || shape.numLives < 1) {
                     return;
                 } 
-                this.vx = [shape.vx, shape.vx = this.vx][0];
-                this.vy = [shape.vy, shape.vy = this.vy][0];
+
+                this.vx *= -1;
+                this.vy *= -1;
+                shape.vx *= -1;
+                shape.vy *= -1;
+                //this.vx = [shape.vx, shape.vx = this.vx][0];
+                //this.vy = [shape.vy, shape.vy = this.vy][0];
 
                 this.numLives -= 1
                 shape.numLives -= 1
