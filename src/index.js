@@ -23,7 +23,7 @@ function getRandomArbitrary(min, max) {
 
 
 function createShapes(shapesArray) {
-    const instNum = 10;
+    const instNum = 4;
     shapes = [];
 
     for (let i = 0; i < instNum; i++) {

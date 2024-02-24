@@ -1,7 +1,7 @@
 import Shape from "./shape";
 import Hexagon from "./hexagon";
 import Triangle from "./triangle";
-
+import Collider from "./collider";
 
 export default class Circle extends Shape {
     
@@ -35,9 +35,11 @@ export default class Circle extends Shape {
 
     tryCollideGeometry(shape) {
         if (shape instanceof Hexagon) {
-            return false;
+            return Collider.collideCircleWithHexagon(this, shape);
         } else if (shape instanceof Triangle) {
-            return false;
+            return Collider.collideCircleWithTriangle(this, shape);
+        } else if (shape instanceof Circle) {
+            return Collider.collideCircleWithCircle(this, shape);
         }
         return false;
     } 
